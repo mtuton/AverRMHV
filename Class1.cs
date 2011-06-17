@@ -25,7 +25,6 @@ namespace MediaPortal.Plugins
         private RemoteClass rc;
         private InputHandler inputhandler;
         private double interKeyDelay = 200;       // inter-key delay in ms
-        //private double interKeyDelay = 100;
         private DateTime lastTimeActionPerformed; // records the time an action was performed
         private DateTime lastTimeButtonPushed;    // records the time a button was pushed
         private uint lastnKeyFunPressed = 0x00000000;
@@ -66,15 +65,11 @@ namespace MediaPortal.Plugins
                     sameButtonPushedCount = 0; 
                 }
 
-                //Boolean idleTimeOkay = (totalIdleTimeSpan == 0 || totalIdleTimeSpan > interKeyDelay);
-                //Boolean idleTimeOkay = (timeSinceButtonPushedInMS > interKeyDelay);
-                //Boolean ignoreKeyPressed = (sameButtonPushedCount == 1);
-
                 // nKeyFun.ToString() - codes for keys
-                // up    = 15
-                // down  = 16
-                // right = 17
-                // left  = 18
+                // up       = 15
+                // down     = 16
+                // right    = 17
+                // left     = 18
                 // channel+ = 29
                 // channel- = 30
                 Boolean navigationKeyPressed = (
@@ -86,26 +81,18 @@ namespace MediaPortal.Plugins
                     nKeyFun == 30
                 );
 
-                // only the navigation keys can be hit more than once, all other keys are ignored
-                //if (sameButtonPushedCount > 1)
-                //{
-                //    ignoreKeyPressed = !navigationKeyPressed;
-                //}
-
                 // log some useful internal information - for debugging purposes
                 Log.Debug("AverRMHV: " + 
-                    "button pressed count: " + sameButtonPushedCount + ": " + 
-                    "time since action taken: " + timeSinceButtonPushedInMS + "ms, " +
-                    "time since button pushed: " + timeSinceActionTakenInMS + "ms, " +
+                    "button pressed count: "     + sameButtonPushedCount     + ": " + 
+                    "time since action taken: "  + timeSinceButtonPushedInMS + "ms, " +
+                    "time since button pushed: " + timeSinceActionTakenInMS  + "ms, " +
                     "Data Received: " + 
                     nKey.ToString() + " " + nKeyFun.ToString() + " " + navigationKeyPressed
                     );
 
                 // perform the action 
                 // if (now - last_time_action_performed) > timeout_period, then perform action
-
-                //if (idleTimeOkay && !ignoreKeyPressed)
-                if (timeSinceActionTakenInMS > interKeyDelay)
+                if (timeSinceActionTakenInMS > (interKeyDelay+10))
                 {
                     Log.Debug("AverRMHV:   KEY ACTIONED: " + nKeyFun.ToString());
                     inputhandler.MapAction((int)nKeyFun);
