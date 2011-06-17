@@ -53,7 +53,7 @@ namespace MediaPortal.Plugins
 
                 // calculate the time since an action was performed
                 timeSinceActionTaken = now - lastTimeActionPerformed;
-                timeSinceActionTakenInMS = timeSinceActionTaken.Milliseconds;
+                timeSinceActionTakenInMS = timeSinceActionTaken.TotalMilliseconds;
 
                 // increase the counter for the number of times the same key has been pressed
                 //if (nKeyFun == lastnKeyFunPressed && (totalKeyPressedTimeSpan == 0 || keyPressedTimeSpan == 156 || totalKeyPressedTimeSpan == 187.5 || totalKeyPressedTimeSpan == 203.125)) // keyPressedTimeSpan == 140 
